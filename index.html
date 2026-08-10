@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daman Group — Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy1:#070b16;
+    --navy2:#0b1329;
+    --navy3:#0f1a38;
+    --gold:#d9a441;
+    --gold2:#f2cd7c;
+    --card:rgba(255,255,255,0.045);
+    --card-border:rgba(217,164,65,0.18);
+    --card-hover:rgba(255,255,255,0.08);
+    --text:#f4ecdd;
+    --muted:#93a0bd;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    font-family:'Inter','Segoe UI',system-ui,Arial,sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(1100px 620px at 50% -14%, rgba(217,164,65,0.20), transparent 62%),
+      radial-gradient(850px 680px at 105% 108%, rgba(50,80,160,0.42), transparent 62%),
+      radial-gradient(750px 560px at -5% 108%, rgba(80,50,130,0.30), transparent 62%),
+      radial-gradient(600px 460px at 100% -8%, rgba(60,150,140,0.18), transparent 60%),
+      linear-gradient(160deg,var(--navy1) 0%, var(--navy2) 55%, var(--navy3) 100%);
+    background-size:135% 135%;
+    animation:bgShift 20s ease-in-out infinite alternate;
+    position:relative;
+    padding:0 clamp(14px,3vw,36px) clamp(14px,2.5vw,26px);
+    overflow-x:hidden;
+  }
+  @keyframes bgShift{
+    from{background-position:0% 0%,0% 0%,0% 0%,0% 0%,0% 0%;}
+    to{background-position:7% 12%,-7% -9%,5% -7%,-6% 8%,0% 0%;}
+  }
+
+  /* fixed decorative layers: route lines + vignette + drifting sparks */
+  .bg-fx{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  .bg-fx .vignette{
+    position:absolute;
+    inset:0;
+    background:radial-gradient(120% 100% at 50% 45%, transparent 40%, rgba(2,4,10,0.55) 100%);
+  }
+  .orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(60px);
+    opacity:.35;
+    animation:orbDrift ease-in-out infinite alternate;
+  }
+  @keyframes orbDrift{
+    from{transform:translate(0,0) scale(1);}
+    to{transform:translate(40px,-30px) scale(1.15);}
+  }
+  .spark{
+    position:absolute;
+    width:3px;height:3px;
+    border-radius:50%;
+    background:var(--gold2);
+    box-shadow:0 0 8px 2px rgba(242,205,124,0.7);
+    opacity:0;
+    animation:sparkDrift linear infinite;
+  }
+  @keyframes sparkDrift{
+    0%{opacity:0; transform:translateY(0);}
+    8%{opacity:.85;}
+    92%{opacity:.6;}
+    100%{opacity:0; transform:translateY(-70px);}
+  }
+
+  .top-rule{
+    height:3px;
+    margin:0 -36px;
+    background:linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold2) 50%, var(--gold) 80%, transparent);
+    flex:none;
+    position:relative;
+    z-index:1;
+  }
+
+  main{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    max-width:1180px;
+    width:100%;
+    margin:0 auto;
+    gap:clamp(10px,2vh,22px);
+    padding:clamp(10px,2vh,18px) 0;
+  }
+
+  header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    animation:fadeDown .7s ease both;
+  }
+  .brand-row{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    margin-bottom:clamp(8px,1.6vh,14px);
+  }
+  .logo-wrap{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:58px;
+    height:58px;
+    border-radius:15px;
+    background:linear-gradient(155deg, rgba(217,164,65,0.20), rgba(20,30,60,0.4));
+    border:1px solid rgba(217,164,65,0.35);
+    box-shadow:0 6px 16px rgba(0,0,0,0.5);
+    padding:6px;
+    flex:none;
+    animation:softFloat 5s ease-in-out infinite;
+  }
+  .logo-wrap img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:9px;
+  }
+  .brand-name{
+    font-family:'Playfair Display',serif;
+    font-size:19px;
+    font-weight:700;
+    letter-spacing:0.4px;
+    color:var(--gold2);
+    text-align:left;
+  }
+  .brand-name small{
+    display:block;
+    font-family:'Inter',sans-serif;
+    font-size:9.5px;
+    font-weight:500;
+    letter-spacing:2.6px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-top:1px;
+  }
+
+  header h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(22px,4vw,36px);
+    margin:0 0 6px;
+    font-weight:700;
+    letter-spacing:0.2px;
+    color:#fdf8ee;
+  }
+  header h1 em{
+    font-style:normal;
+    background:linear-gradient(95deg, var(--gold) 10%, var(--gold2) 55%, var(--gold) 95%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  header p{
+    margin:0 0 10px;
+    color:var(--muted);
+    font-size:clamp(11.5px,1.6vw,13.5px);
+    max-width:440px;
+  }
+  .ornament{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--gold);
+    opacity:.9;
+  }
+  .ornament .ln{width:40px;height:1px;background:linear-gradient(90deg, transparent, var(--gold));}
+  .ornament .ln.r{background:linear-gradient(90deg, var(--gold), transparent);}
+  .ornament svg{width:11px;height:11px;animation:spinSlow 10s linear infinite;}
+
+  .section-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:0 0 clamp(8px,1.6vh,14px);
+  }
+  .section-title h2{
+    margin:0;
+    font-family:'Playfair Display',serif;
+    font-size:clamp(13px,1.6vw,15.5px);
+    letter-spacing:0.5px;
+    color:var(--gold2);
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .section-title .count{
+    font-family:'Inter',sans-serif;
+    font-size:10px;
+    font-weight:600;
+    color:var(--navy1);
+    background:linear-gradient(95deg,var(--gold),var(--gold2));
+    padding:2px 9px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .section-title .line{
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg, rgba(217,164,65,0.35), transparent);
+  }
+
+  .section{
+    perspective:1300px;
+  }
+  .grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:clamp(9px,1.4vw,14px);
+  }
+
+  a.card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    flex:1 1 128px;
+    max-width:154px;
+    background:var(--card);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid var(--card-border);
+    border-radius:14px;
+    padding:clamp(14px,2.2vh,20px) 10px;
+    text-decoration:none;
+    color:var(--text);
+    min-height:100px;
+    text-align:center;
+    overflow:hidden;
+    transform-style:preserve-3d;
+    will-change:transform;
+    transition:transform .35s cubic-bezier(.2,.8,.3,1), background .25s ease, border-color .25s ease, box-shadow .35s ease;
+    animation:fadeUp .6s ease both;
+  }
+  a.card.tilting{
+    transition:background .25s ease, border-color .25s ease, box-shadow .2s ease;
+  }
+  a.card::before{
+    content:"";
+    position:absolute;
+    left:0; right:0; top:0;
+    height:2px;
+    background:linear-gradient(90deg, transparent, var(--card-glow, var(--gold)), transparent);
+    opacity:0;
+    transition:opacity .25s ease;
+    z-index:2;
+  }
+  a.card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    background:radial-gradient(180px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.22), transparent 60%);
+    opacity:0;
+    transition:opacity .3s ease;
+    pointer-events:none;
+    z-index:1;
+  }
+  a.card:hover{
+    background:var(--card-hover);
+    border-color:var(--card-glow, rgba(217,164,65,0.55));
+    box-shadow:0 42px 60px -12px rgba(0,0,0,0.65), 0 18px 28px -8px rgba(0,0,0,0.55), 0 0 0 1px rgba(217,164,65,0.12), 0 0 34px -6px var(--card-glow, rgba(217,164,65,0.5));
+  }
+  a.card:hover::before{opacity:1;}
+  a.card:hover::after{opacity:1;}
+
+  .icon-badge{
+    width:38px;height:38px;
+    border-radius:11px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;
+    background:radial-gradient(circle at 30% 25%, var(--badge-c2,#3a4a70), var(--badge-c1,#243154));
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,0.10), 0 5px 14px rgba(0,0,0,0.35);
+    transform:translateZ(14px);
+    transition:transform .35s ease;
+    position:relative;
+    z-index:2;
+  }
+  a.card:hover .icon-badge{transform:translateZ(26px) scale(1.1);}
+  .card-title, .card-tag{position:relative; z-index:2;}
+
+  .card-title{
+    font-family:'Inter',sans-serif;
+    font-size:12.5px;
+    font-weight:650;
+    letter-spacing:0.1px;
+    line-height:1.25;
+  }
+  .card-tag{
+    font-size:8.5px;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    color:var(--muted);
+    font-weight:500;
+  }
+
+  /* per-card accent colors — muted jewel tones */
+  .c-amber{--card-glow:#d9a441; --badge-c1:#3a2b10; --badge-c2:#d9a441;}
+  .c-emerald{--card-glow:#3fae7a; --badge-c1:#0f3324; --badge-c2:#3fae7a;}
+  .c-sapphire{--card-glow:#4d7fd6; --badge-c1:#152648; --badge-c2:#4d7fd6;}
+  .c-ruby{--card-glow:#c4515a; --badge-c1:#3a1418; --badge-c2:#c4515a;}
+  .c-teal{--card-glow:#3aa9a3; --badge-c1:#0e3532; --badge-c2:#3aa9a3;}
+  .c-amethyst{--card-glow:#8b6fd6; --badge-c1:#241a3f; --badge-c2:#8b6fd6;}
+  .c-citrine{--card-glow:#d6b23a; --badge-c1:#3a3210; --badge-c2:#d6b23a;}
+  .c-indigo{--card-glow:#5b6ee8; --badge-c1:#161b3f; --badge-c2:#5b6ee8;}
+
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:10.5px;
+    letter-spacing:0.3px;
+    flex:none;
+    padding-top:2px;
+  }
+  footer span{color:var(--gold2); font-weight:600;}
+
+  @keyframes fadeDown{
+    from{opacity:0; transform:translateY(-14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(12px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes softFloat{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-4px);}
+  }
+  @keyframes spinSlow{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+  }
+
+  @media (max-width:480px){
+    .top-rule{margin:0 -14px;}
+    a.card{flex:1 1 100px; max-width:31%; min-height:92px; padding:12px 6px;}
+    .icon-badge{width:34px;height:34px;font-size:16px;}
+  }
+  @media (max-height:680px){
+    header p{display:none;}
+    .ornament{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-fx">
+  <div class="orb" style="width:340px;height:340px; background:radial-gradient(circle,#d9a441,transparent 70%); top:-8%; left:6%; animation-duration:16s;"></div>
+  <div class="orb" style="width:300px;height:300px; background:radial-gradient(circle,#4d7fd6,transparent 70%); top:52%; right:4%; animation-duration:20s; animation-delay:-4s;"></div>
+  <div class="orb" style="width:260px;height:260px; background:radial-gradient(circle,#8b6fd6,transparent 70%); bottom:-6%; left:38%; animation-duration:18s; animation-delay:-9s;"></div>
+  <div class="orb" style="width:220px;height:220px; background:radial-gradient(circle,#3aa9a3,transparent 70%); top:6%; right:22%; animation-duration:14s; animation-delay:-2s;"></div>
+  <div class="vignette"></div>
+  <span class="spark" style="left:8%; top:75%; animation-duration:9s; animation-delay:.2s;"></span>
+  <span class="spark" style="left:22%; top:30%; animation-duration:11s; animation-delay:2.4s;"></span>
+  <span class="spark" style="left:38%; top:85%; animation-duration:8s; animation-delay:1s;"></span>
+  <span class="spark" style="left:55%; top:20%; animation-duration:12s; animation-delay:3.6s;"></span>
+  <span class="spark" style="left:68%; top:65%; animation-duration:10s; animation-delay:.8s;"></span>
+  <span class="spark" style="left:81%; top:40%; animation-duration:13s; animation-delay:2s;"></span>
+  <span class="spark" style="left:92%; top:78%; animation-duration:9.5s; animation-delay:4.2s;"></span>
+</div>
+
+<div class="top-rule"></div>
+
+<main>
+  <header>
+    <div class="brand-row">
+      <div class="logo-wrap"><img src="logo.jpeg" alt="Daman Group Logo"></div>
+      <div class="brand-name">Daman Group<small>Fleet Operations</small></div>
+    </div>
+    <h1>Dashboard <em>Home</em></h1>
+    <p>Tap a button to open the live website or Google Sheet — always up to date</p>
+    <div class="ornament">
+      <span class="ln"></span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.2L12 16.4 5.7 20.8 8 13.6 2 9.2h7.6z"/></svg>
+      <span class="ln r"></span>
+    </div>
+  </header>
+
+  <div class="section">
+    <div class="section-title">
+      <h2>Websites</h2>
+      <span class="count">2</span>
+      <span class="line"></span>
+    </div>
+    <div class="grid">
+      <a class="card c-emerald" href="https://rahulkumarsahu991.github.io/P-L-LIVE/" target="_blank" rel="noopener">
+        <div class="icon-badge">📊</div>
+        <div class="card-title">Fleet P&amp;L Dashboard</div>
+        <div class="card-tag">Live Website</div>
+      </a>
+      <a class="card c-amber" href="https://rahulkumarsahu991.github.io/Daman-Diesel-Tracker/" target="_blank" rel="noopener">
+        <div class="icon-badge">⛽</div>
+        <div class="card-title">Daman Diesel Tracker</div>
+        <div class="card-tag">Live Website</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <h2>Google Sheets</h2>
+      <span class="count">8</span>
+      <span class="line"></span>
+    </div>
+    <div class="grid">
+      <a class="card c-ruby" href="https://docs.google.com/spreadsheets/d/1wGQ4nHZWRKnSntYA8drzuZaVx5-QfIxNsIeHtzIjIoQ/edit?pli=1&gid=762740739#gid=762740739" target="DISPATCH_SHEET" rel="noopener">
+        <div class="icon-badge">🚚</div>
+        <div class="card-title">Dispatch</div>
+        <div class="card-tag">Sheet</div>
+      </a>
+      <a class="card c-indigo" href="https://docs.google.com/spreadsheets/d/1EgXBPgwuSJPOcAk9tNtdaDSwYurkG_gAAhdb12wNTHU/edit?pli=1&gid=1023893960#gid=1023893960" target="PL_DATA_SHEET" rel="noopener">
+        <div class="icon-badge">📈</div>
+        <div class="card-title">P&amp;L Data</div>
+        <div class="card-tag">Sheet</div>
+      </a>
+      <a class="card c-sapphire" href="https://docs.google.com/spreadsheets/u/1/d/10Pq4Dy5eMqQl68JIbdWwtTdemPeZMuLxwwwF77Ou0iM/edit?gid=1587029936#gid=1587029936" target="_blank" rel="noopener">
+        <div class="icon-badge">💳</div>
+        <div class="card-title">UPI</div>
+        <div class="card-tag">Sheet</div>
+      </a>
+      <a class="card c-amber" href="https://docs.google.com/spreadsheets/d/1EEks9zfIjnYKxARCN6nBTVTxboV19_i32Gg16BzGZdk/edit?gid=1108958072#gid=1108958072" target="_blank" rel="noopener">
+        <div class="icon-badge">🛢️</div>
+        <div class="card-title">Diesel &amp; Urea</div>
+        <div class="card-tag">Sheet</div>
+      </a>
+      <a class="card c-amethyst" href="https://docs.google.com/spreadsheets/d/1Fg4Qdoo0AwGvWDSGw3vXK6xR0WTqkLZl58D8uAVZ0WA/edit?gid=527569661#gid=527569661" target="_blank" rel="noopener">
+        <div class="icon-badge">📄</div>
+        <div class="card-title">Paper &amp; RTO</div>
+        <div class="card-tag">Sheet</div>
+      </a>
+      <a class="card c-citrine" href="https://docs.google.com/spreadsheets/d/1Sda-rzoPwwjv4NMWiPg0ZMvT6PKkTz_WbiovC9meoho/edit?gid=1793719173#gid=1793719173" target="_blank" rel="noopener">
+        <div class="icon-badge">🚦</div>
+        <div class="card-title">FASTag</div>
+        <div class="card-tag">Sheet</div>
+      </a>
+      <a class="card c-emerald" href="https://docs.google.com/spreadsheets/d/12l-Moa0V8PCPOSiild3NACWxP1DFFPtcBp7Y8fcisuk/edit?gid=0#gid=0" target="_blank" rel="noopener">
+        <div class="icon-badge">💵</div>
+        <div class="card-title">Cash</div>
+        <div class="card-tag">Sheet</div>
+      </a>
+      <a class="card c-teal" href="https://docs.google.com/spreadsheets/d/152RIsmQM0VxAnMsQs48IfqfApwjZMXq2QEMPp_E9V8E/edit?gid=0#gid=0" target="_blank" rel="noopener">
+        <div class="icon-badge">🛞</div>
+        <div class="card-title">Tyre</div>
+        <div class="card-tag">Sheet</div>
+      </a>
+    </div>
+  </div>
+
+  <footer>Made for <span>Daman Group</span> &middot; Home Page</footer>
+</main>
+
+<script>
+(function(){
+  if(!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var cards = document.querySelectorAll('a.card');
+  cards.forEach(function(card){
+    function onMove(e){
+      var rect = card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width;
+      var y = (e.clientY - rect.top) / rect.height;
+      var rx = (0.5 - y) * 22;
+      var ry = (x - 0.5) * 24;
+      card.style.transform = 'perspective(500px) translateZ(110px) translateY(-14px) scale(1.22) rotateX('+rx.toFixed(2)+'deg) rotateY('+ry.toFixed(2)+'deg)';
+      card.style.setProperty('--mx', (x*100).toFixed(1)+'%');
+      card.style.setProperty('--my', (y*100).toFixed(1)+'%');
+    }
+    card.addEventListener('mouseenter', function(e){
+      card.style.zIndex = 10;
+      onMove(e);
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ card.classList.add('tilting'); });
+      });
+    });
+    card.addEventListener('mousemove', onMove);
+    card.addEventListener('mouseleave', function(){
+      card.classList.remove('tilting');
+      card.style.transform = '';
+      card.style.zIndex = '';
+      card.style.setProperty('--mx','50%');
+      card.style.setProperty('--my','50%');
+    });
+  });
+})();
+</script>
+</body>
+</html>
