@@ -6,7 +6,8 @@
 <title>Daman Group — Home</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="truck.mp4" as="video" type="video/mp4">
 <style>
   :root{
     --navy1:#070b16;
@@ -395,6 +396,11 @@
     }
   }
 
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+    .orb, .spark{display:none;}
+  }
+
   /* ===== Secure access gate ===== */
   #gate{
     position:fixed;
@@ -455,12 +461,12 @@
 
   .gate-truck{
     position:absolute;
-    bottom:calc(50% + 18px);
+    bottom:calc(50% + 14px);
     left:-230px;
-    animation:truckIn 3s cubic-bezier(.2,.7,.2,1) .3s forwards;
+    animation:truckIn 5.5s cubic-bezier(.16,.84,.44,1) .3s forwards;
   }
   .gate-truck.leaving{
-    animation:truckOut 2.2s cubic-bezier(.4,0,.6,1) forwards;
+    animation:truckOut 4s cubic-bezier(.6,0,.85,0) forwards;
   }
   @keyframes truckIn{
     from{left:-230px;}
@@ -473,13 +479,13 @@
 
   .gate-truck-video{
     display:block;
-    width:clamp(150px,26vw,240px);
-    height:clamp(84px,15vw,135px);
-    object-fit:cover;
-    border-radius:14px;
-    border:2px solid rgba(217,164,65,0.55);
-    box-shadow:0 0 0 1px rgba(0,234,255,0.25), 0 0 16px rgba(0,234,255,0.35), 0 0 26px rgba(255,47,176,0.25), 0 14px 22px rgba(0,0,0,0.55);
-    background:#0a0e1c;
+    width:clamp(140px,24vw,220px);
+    height:auto;
+    border:0;
+    border-radius:0;
+    box-shadow:none;
+    background:transparent;
+    filter:drop-shadow(0 10px 14px rgba(0,0,0,0.5));
   }
 
   .gate-card{
@@ -496,7 +502,7 @@
     text-align:center;
     opacity:0;
     transform:translateY(16px);
-    animation:gateCardIn .6s ease 2.6s forwards;
+    animation:gateCardIn .6s ease 5s forwards;
     box-shadow:0 24px 50px rgba(0,0,0,0.5);
   }
   @keyframes gateCardIn{
