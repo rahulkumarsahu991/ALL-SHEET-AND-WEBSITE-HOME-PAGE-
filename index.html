@@ -418,31 +418,38 @@
   .gate-truck{
     position:absolute;
     bottom:calc(50% + 2px);
-    left:-160px;
-    font-size:clamp(40px,7vw,64px);
-    filter:drop-shadow(0 10px 14px rgba(0,0,0,0.55));
-    animation:truckIn 1.4s cubic-bezier(.2,.7,.2,1) .3s forwards;
+    left:-230px;
+    animation:truckIn 1.5s cubic-bezier(.2,.7,.2,1) .3s forwards;
   }
   .gate-truck.leaving{
     animation:truckOut 1s cubic-bezier(.4,0,.6,1) forwards;
   }
-  .truck-flip{display:inline-block; transform:scaleX(-1);}
   @keyframes truckIn{
-    from{left:-160px;}
-    to{left:calc(50% - 120px);}
+    from{left:-230px;}
+    to{left:calc(50% - 95px);}
   }
   @keyframes truckOut{
-    from{left:calc(50% - 120px); transform:scaleX(1);}
-    to{left:110%; transform:scaleX(1);}
+    from{left:calc(50% - 95px);}
+    to{left:112%;}
   }
-  .gate-truck.shake{animation:truckShake .45s ease;}
-  @keyframes truckShake{
-    0%,100%{transform:translateX(0);}
-    20%{transform:translateX(-8px);}
-    40%{transform:translateX(7px);}
-    60%{transform:translateX(-5px);}
-    80%{transform:translateX(4px);}
+
+  .truck-svg{
+    display:block;
+    width:clamp(120px,20vw,190px);
+    height:auto;
+    overflow:visible;
+    animation:neonPulse 1.8s ease-in-out infinite alternate;
   }
+  @keyframes neonPulse{
+    from{ filter: drop-shadow(0 0 4px #00eaff) drop-shadow(0 0 9px #ff2fb0) drop-shadow(0 12px 16px rgba(0,0,0,0.55)); }
+    to{ filter: drop-shadow(0 0 8px #00eaff) drop-shadow(0 0 18px #ff2fb0) drop-shadow(0 12px 16px rgba(0,0,0,0.55)); }
+  }
+  .wheel{
+    transform-box:fill-box;
+    transform-origin:50% 50%;
+    animation:wheelSpin .35s linear infinite;
+  }
+  @keyframes wheelSpin{ to{ transform:rotate(360deg); } }
 
   .gate-card{
     position:relative;
@@ -464,13 +471,20 @@
   @keyframes gateCardIn{
     to{opacity:1; transform:translateY(0);}
   }
-  .gate-card.shake{animation:cardShake .45s ease;}
-  @keyframes cardShake{
-    0%,100%{transform:translateX(0);}
-    20%{transform:translateX(-8px);}
-    40%{transform:translateX(7px);}
-    60%{transform:translateX(-5px);}
-    80%{transform:translateX(4px);}
+  body.page-shake{
+    animation:pageShake .5s cubic-bezier(.36,.07,.19,.97) both;
+  }
+  @keyframes pageShake{
+    0%,100%{transform:translate(0,0) rotate(0);}
+    10%{transform:translate(-10px,-4px) rotate(-0.6deg);}
+    20%{transform:translate(9px,4px) rotate(0.6deg);}
+    30%{transform:translate(-11px,3px) rotate(-0.7deg);}
+    40%{transform:translate(11px,-3px) rotate(0.7deg);}
+    50%{transform:translate(-8px,4px) rotate(-0.5deg);}
+    60%{transform:translate(8px,-4px) rotate(0.5deg);}
+    70%{transform:translate(-6px,2px) rotate(-0.3deg);}
+    80%{transform:translate(6px,-2px) rotate(0.3deg);}
+    90%{transform:translate(-3px,1px);}
   }
   .gate-lock{
     width:46px;height:46px;
@@ -557,7 +571,51 @@
 <div id="gate">
   <div class="gate-brand"><img src="logo.jpeg" alt="Daman Group"><span>Daman Group</span></div>
   <div class="gate-road"></div>
-  <div class="gate-truck" id="gateTruck"><span class="truck-flip">🚛</span></div>
+  <div class="gate-truck" id="gateTruck">
+    <svg class="truck-svg" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="trailerGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ff6a3d"/>
+          <stop offset="45%" stop-color="#ffd23f"/>
+          <stop offset="100%" stop-color="#ff5b3d"/>
+        </linearGradient>
+        <linearGradient id="cabGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#28a4e8"/>
+          <stop offset="100%" stop-color="#0d5aa3"/>
+        </linearGradient>
+      </defs>
+
+      <g fill="#ff2fb0">
+        <polygon points="46,13 54,13 50,23"/>
+        <polygon points="64,13 72,13 68,23"/>
+        <polygon points="82,13 90,13 86,23"/>
+        <polygon points="100,13 108,13 104,23"/>
+        <polygon points="118,13 126,13 122,23"/>
+        <polygon points="136,13 144,13 140,23"/>
+        <polygon points="154,13 162,13 158,23"/>
+        <polygon points="172,13 180,13 176,23"/>
+        <polygon points="190,13 198,13 194,23"/>
+      </g>
+
+      <rect x="14" y="66" width="248" height="8" fill="#20242f"/>
+
+      <rect x="34" y="24" width="180" height="46" rx="6" fill="url(#trailerGrad)" stroke="#fff4d6" stroke-width="2"/>
+      <rect x="44" y="34" width="160" height="4" fill="#ffffff" opacity=".55"/>
+      <rect x="44" y="54" width="160" height="4" fill="#ffffff" opacity=".55"/>
+      <text x="124" y="52" text-anchor="middle" font-family="'Poppins','Inter',sans-serif" font-weight="800" font-size="15" fill="#1c2e4d">DAMAN</text>
+
+      <rect x="214" y="30" width="46" height="40" rx="6" fill="url(#cabGrad)" stroke="#dff3ff" stroke-width="2"/>
+      <rect x="222" y="36" width="30" height="16" rx="3" fill="#bff0ff" opacity=".85"/>
+      <rect x="208" y="58" width="10" height="10" fill="#c8ccd6"/>
+      <circle cx="258" cy="46" r="3.2" fill="#fff3b0"/>
+      <rect x="206" y="24" width="4" height="18" fill="#c8ccd6"/>
+
+      <g class="wheel"><circle cx="52" cy="78" r="12" fill="#12141c"/><circle cx="52" cy="78" r="5" fill="#9aa3b5"/><circle cx="60" cy="78" r="12" fill="#12141c"/><circle cx="60" cy="78" r="5" fill="#9aa3b5"/></g>
+      <g class="wheel"><circle cx="114" cy="78" r="12" fill="#12141c"/><circle cx="114" cy="78" r="5" fill="#9aa3b5"/><circle cx="122" cy="78" r="12" fill="#12141c"/><circle cx="122" cy="78" r="5" fill="#9aa3b5"/></g>
+      <g class="wheel"><circle cx="176" cy="78" r="12" fill="#12141c"/><circle cx="176" cy="78" r="5" fill="#9aa3b5"/><circle cx="184" cy="78" r="12" fill="#12141c"/><circle cx="184" cy="78" r="5" fill="#9aa3b5"/></g>
+      <g class="wheel"><circle cx="238" cy="78" r="12" fill="#12141c"/><circle cx="238" cy="78" r="5" fill="#9aa3b5"/><circle cx="246" cy="78" r="12" fill="#12141c"/><circle cx="246" cy="78" r="5" fill="#9aa3b5"/></g>
+    </svg>
+  </div>
   <form class="gate-card" id="gateForm" autocomplete="off">
     <div class="gate-lock">🔒</div>
     <h3>Secure Access</h3>
@@ -754,11 +812,11 @@
       }, 650);
     } else {
       errorEl.classList.add('show');
-      card.classList.remove('shake');
-      truck.classList.remove('shake');
-      void card.offsetWidth;
-      card.classList.add('shake');
-      truck.classList.add('shake');
+      document.body.classList.remove('page-shake');
+      void document.body.offsetWidth;
+      document.body.classList.add('page-shake');
+      if(navigator.vibrate){ navigator.vibrate([60,40,60,40,90]); }
+      setTimeout(function(){ document.body.classList.remove('page-shake'); }, 520);
       pwInput.value = '';
       pwInput.focus();
     }
