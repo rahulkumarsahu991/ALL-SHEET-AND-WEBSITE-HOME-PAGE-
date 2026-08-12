@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="preload" href="truck.mp4" as="video" type="video/mp4">
 <style>
   :root{
     --navy1:#070b16;
@@ -431,68 +430,11 @@
   #gate .gate-brand img{width:34px;height:34px;border-radius:9px;object-fit:contain;}
   #gate .gate-brand span{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--gold2);letter-spacing:.4px;}
 
-  .gate-road{
-    position:absolute;
-    left:0; right:0;
-    bottom:calc(50% - 16px);
-    height:34px;
-    background:linear-gradient(180deg,#232838,#14161f 55%,#232838);
-    box-shadow:0 10px 22px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(217,164,65,0.12);
-  }
-  .gate-road::before{
-    content:"";
-    position:absolute;
-    left:0; right:0; top:50%;
-    height:4px;
-    transform:translateY(-50%);
-    background:repeating-linear-gradient(90deg, var(--gold2) 0 34px, transparent 34px 68px);
-    opacity:.85;
-    animation:roadDash 1.8s linear infinite;
-  }
-  .gate-road::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.16), transparent 3px),
-      linear-gradient(0deg, rgba(255,255,255,0.16), transparent 3px);
-  }
-  @keyframes roadDash{ from{background-position:0 0;} to{background-position:-68px 0;} }
-
-  .gate-truck{
-    position:absolute;
-    bottom:calc(50% + 14px);
-    left:-230px;
-    animation:truckIn 5.5s cubic-bezier(.16,.84,.44,1) .3s forwards;
-  }
-  .gate-truck.leaving{
-    animation:truckOut 4s cubic-bezier(.6,0,.85,0) forwards;
-  }
-  @keyframes truckIn{
-    from{left:-230px;}
-    to{left:calc(50% - 95px);}
-  }
-  @keyframes truckOut{
-    from{left:calc(50% - 95px);}
-    to{left:112%;}
-  }
-
-  .gate-truck-video{
-    display:block;
-    width:clamp(140px,24vw,220px);
-    height:auto;
-    border:0;
-    border-radius:0;
-    box-shadow:none;
-    background:transparent;
-    filter:drop-shadow(0 10px 14px rgba(0,0,0,0.5));
-  }
 
   .gate-card{
     position:relative;
     z-index:2;
     width:min(340px,86vw);
-    margin-top:clamp(70px,14vh,120px);
     background:rgba(255,255,255,0.05);
     backdrop-filter:blur(16px);
     -webkit-backdrop-filter:blur(16px);
@@ -502,7 +444,7 @@
     text-align:center;
     opacity:0;
     transform:translateY(16px);
-    animation:gateCardIn .6s ease 5s forwards;
+    animation:gateCardIn .5s ease .15s forwards;
     box-shadow:0 24px 50px rgba(0,0,0,0.5);
   }
   @keyframes gateCardIn{
@@ -607,10 +549,6 @@
 
 <div id="gate">
   <div class="gate-brand"><img src="logo.jpeg" alt="Daman Group"><span>Daman Group</span></div>
-  <div class="gate-road"></div>
-  <div class="gate-truck" id="gateTruck">
-    <video class="gate-truck-video" src="truck.mp4" muted autoplay loop playsinline webkit-playsinline="true" preload="auto"></video>
-  </div>
   <form class="gate-card" id="gateForm" autocomplete="off">
     <div class="gate-lock">🔒</div>
     <h3>Secure Access</h3>
@@ -789,7 +727,6 @@
   var idInput = document.getElementById('gateId');
   var pwInput = document.getElementById('gatePw');
   var errorEl = document.getElementById('gateError');
-  var truck = document.getElementById('gateTruck');
   var card = form;
 
   idInput.focus();
@@ -798,7 +735,6 @@
     e.preventDefault();
     if(idInput.value === VALID_ID && pwInput.value === VALID_PW){
       errorEl.classList.remove('show');
-      truck.classList.add('leaving');
       card.style.transition = 'opacity .4s ease, transform .4s ease';
       card.style.opacity = '0';
       card.style.transform = 'translateY(-10px) scale(.97)';
